@@ -1,0 +1,9 @@
+<div class="container">
+  <h2>Histórico do Cliente #{{ customerId }}</h2>
+
+  <ul class="list-group">
+    <li *ngFor="let log of logs" class="list-group-item">
+      {{ log }}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,157 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>{{ isEditMode ? 'Editar' : 'Novo' }} Cliente</h2>
+    <button class="btn btn-secondary" (click)="cancel()">
+      <i class="fas fa-arrow-left"></i> Voltar
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="name" class="form-label">Nome *</label>
+        <input type="text" class="form-control" id="name" formControlName="name"
+               [ngClass]="{'is-invalid': form.get('name')?.invalid && form.get('name')?.touched}">
+        <div class="invalid-feedback" *ngIf="form.get('name')?.errors?.['required']">
+          Nome é obrigatório
+        </div>
+        <div class="invalid-feedback" *ngIf="form.get('name')?.errors?.['minlength']">
+          Nome deve ter no mínimo 2 caracteres
+        </div>
+        <div class="invalid-feedback" *ngIf="form.get('name')?.errors?.['maxlength']">
+          Nome deve ter no máximo 100 caracteres
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="email" class="form-label">E-mail *</label>
+        <input type="email" class="form-control" id="email" formControlName="email"
+               [ngClass]="{'is-invalid': form.get('email')?.invalid && form.get('email')?.touched}">
+        <div class="invalid-feedback" *ngIf="form.get('email')?.errors?.['required']">
+          E-mail é obrigatório
+        </div>
+        <div class="invalid-feedback" *ngIf="form.get('email')?.errors?.['email']">
+          E-mail inválido
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="documentNumber" class="form-label">CPF/CNPJ *</label>
+        <input type="text" class="form-control" id="documentNumber" formControlName="documentNumber"
+               [ngClass]="{'is-invalid': form.get('documentNumber')?.invalid && form.get('documentNumber')?.touched}">
+        <div class="invalid-feedback" *ngIf="form.get('documentNumber')?.errors?.['required']">
+          CPF/CNPJ é obrigatório
+        </div>
+        <div class="invalid-feedback" *ngIf="form.get('documentNumber')?.errors?.['maxlength']">
+          CPF/CNPJ deve ter no máximo 20 caracteres
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="birthDate" class="form-label">Data de Nascimento *</label>
+        <input type="date" class="form-control" id="birthDate" formControlName="birthDate"
+               [ngClass]="{'is-invalid': form.get('birthDate')?.invalid && form.get('birthDate')?.touched}">
+        <div class="invalid-feedback" *ngIf="form.get('birthDate')?.errors?.['required']">
+          Data de nascimento é obrigatória
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="phone" class="form-label">Telefone</label>
+        <input type="text" class="form-control" id="phone" formControlName="phone"
+               [ngClass]="{'is-invalid': form.get('phone')?.invalid && form.get('phone')?.touched}">
+        <div class="invalid-feedback" *ngIf="form.get('phone')?.errors?.['maxlength']">
+          Telefone deve ter no máximo 20 caracteres
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3" *ngIf="isCNPJ()">
+        <label for="stateInscription" class="form-label">Inscrição Estadual *</label>
+        <input type="text" class="form-control" id="stateInscription" formControlName="stateInscription"
+               [ngClass]="{'is-invalid': form.get('stateInscription')?.invalid && form.get('stateInscription')?.touched}">
+        <div class="invalid-feedback" *ngIf="form.get('stateInscription')?.errors?.['required']">
+          Inscrição estadual é obrigatória para CNPJ
+        </div>
+        <div class="invalid-feedback" *ngIf="form.get('stateInscription')?.errors?.['pattern']">
+          Inscrição estadual deve conter apenas números
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="streetAddress" class="form-label">Endereço</label>
+        <input type="text" class="form-control" id="streetAddress" formControlName="streetAddress"
+               [ngClass]="{'is-invalid': form.get('streetAddress')?.invalid && form.get('streetAddress')?.touched}">
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="buildingNumber" class="form-label">Número</label>
+        <input type="text" class="form-control" id="buildingNumber" formControlName="buildingNumber"
+               [ngClass]="{'is-invalid': form.get('buildingNumber')?.invalid && form.get('buildingNumber')?.touched}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="secondaryAddress" class="form-label">Complemento</label>
+        <input type="text" class="form-control" id="secondaryAddress" formControlName="secondaryAddress"
+               [ngClass]="{'is-invalid': form.get('secondaryAddress')?.invalid && form.get('secondaryAddress')?.touched}">
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="neighborhood" class="form-label">Bairro</label>
+        <input type="text" class="form-control" id="neighborhood" formControlName="neighborhood"
+               [ngClass]="{'is-invalid': form.get('neighborhood')?.invalid && form.get('neighborhood')?.touched}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="zipCode" class="form-label">CEP</label>
+        <input type="text" class="form-control" id="zipCode" formControlName="zipCode"
+               [ngClass]="{'is-invalid': form.get('zipCode')?.invalid && form.get('zipCode')?.touched}">
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="city" class="form-label">Cidade</label>
+        <input type="text" class="form-control" id="city" formControlName="city"
+               [ngClass]="{'is-invalid': form.get('city')?.invalid && form.get('city')?.touched}">
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="state" class="form-label">Estado</label>
+        <input type="text" class="form-control" id="state" formControlName="state"
+               [ngClass]="{'is-invalid': form.get('state')?.invalid && form.get('state')?.touched}">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="active" formControlName="active">
+        <label class="form-check-label" for="active">Ativo</label>
+      </div>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="button" class="btn btn-secondary me-md-2" (click)="cancel()">Cancelar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+        {{ isEditMode ? 'Atualizar' : 'Cadastrar' }}
+      </button>
+    </div>
+  </form>
+</div> 

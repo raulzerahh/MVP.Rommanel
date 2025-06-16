@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Lista de Clientes</h2>
+
+  <div *ngIf="loading">Carregando...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <table class="table table-bordered" *ngIf="!loading && customers.length">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.phone }}</td>
+        <td>
+          <a [routerLink]="['/customers/edit', customer.id]" class="btn btn-sm btn-primary">Editar</a>
+          <button (click)="deleteCustomer(customer.id)" class="btn btn-sm btn-danger">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && customers.length === 0" class="alert alert-info">
+    Nenhum cliente cadastrado.
+  </div>
+</div>

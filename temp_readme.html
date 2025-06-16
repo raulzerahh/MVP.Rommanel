@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVP Project</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.css">
+    <style>
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <article class="markdown-body">
+        <h1>MVP Project</h1>
+
+        <p>
+            <a href="https://docs.microsoft.com/pt-br/dotnet/csharp/"><img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#"></a>
+            <a href="https://dotnet.microsoft.com/"><img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET"></a>
+            <a href="https://www.microsoft.com/pt-br/sql-server"><img src="https://img.shields.io/badge/SQL_Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white" alt="SQL Server"></a>
+        </p>
+
+        <h2>Sobre o Projeto</h2>
+        <p>O MVP Project é um projeto de demonstração que implementa uma arquitetura limpa e moderna utilizando .NET 9.0. O objetivo é demonstrar as melhores práticas de desenvolvimento e padrões de arquitetura em aplicações .NET.</p>
+
+        <h2>Tecnologias Implementadas</h2>
+
+        <h3>Backend</h3>
+        <ul>
+            <li>ASP.NET Core 9.0
+                <ul>
+                    <li>ASP.NET WebApi Core</li>
+                    <li>ASP.NET Identity Core</li>
+                </ul>
+            </li>
+            <li>Entity Framework Core 9.0</li>
+            <li>SQL Server</li>
+            <li>Swagger UI</li>
+            <li>MediatR para CQRS</li>
+            <li>FluentValidation</li>
+            <li>AutoMapper</li>
+        </ul>
+
+        <h3>Frontend</h3>
+        <ul>
+            <li>React 18</li>
+            <li>TypeScript</li>
+            <li>Material-UI (MUI)</li>
+            <li>React Query</li>
+            <li>React Router</li>
+            <li>Axios</li>
+        </ul>
+
+        <h2>Arquitetura</h2>
+
+        <h3>Princípios e Padrões</h3>
+        <ul>
+            <li>Domain-Driven Design (DDD)</li>
+            <li>Clean Architecture</li>
+            <li>SOLID Principles
+                <ul>
+                    <li>Single Responsibility Principle (SRP)</li>
+                    <li>Open/Closed Principle (OCP)</li>
+                    <li>Liskov Substitution Principle (LSP)</li>
+                    <li>Interface Segregation Principle (ISP)</li>
+                    <li>Dependency Inversion Principle (DIP)</li>
+                </ul>
+            </li>
+            <li>CQRS (Command Query Responsibility Segregation)</li>
+            <li>Event Sourcing</li>
+            <li>Repository Pattern</li>
+            <li>Unit of Work Pattern</li>
+        </ul>
+
+        <h3>Camadas da Aplicação</h3>
+        <ul>
+            <li>Domain Layer
+                <ul>
+                    <li>Entidades</li>
+                    <li>Interfaces</li>
+                    <li>Eventos de Domínio</li>
+                    <li>Agregados</li>
+                    <li>Value Objects</li>
+                </ul>
+            </li>
+            <li>Application Layer
+                <ul>
+                    <li>Casos de Uso</li>
+                    <li>DTOs</li>
+                    <li>Commands e Queries</li>
+                    <li>Event Handlers</li>
+                </ul>
+            </li>
+            <li>Infrastructure Layer
+                <ul>
+                    <li>Repositórios</li>
+                    <li>Contexto EF</li>
+                    <li>Serviços Externos</li>
+                </ul>
+            </li>
+            <li>Presentation Layer
+                <ul>
+                    <li>Controllers</li>
+                    <li>Configurações</li>
+                    <li>Middlewares</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Frontend</h3>
+        <ul>
+            <li>Arquitetura Baseada em Componentes</li>
+            <li>Gerenciamento de Estado com React Query</li>
+            <li>Roteamento com React Router</li>
+            <li>UI Components com Material-UI</li>
+            <li>TypeScript para Type Safety</li>
+        </ul>
+
+        <h2>Estrutura do Projeto</h2>
+        <pre><code>MVP.Project/
+├── src/
+│   ├── MVP.Project.Domain/           # Entidades e Interfaces
+│   ├── MVP.Project.Application/      # Casos de Uso e DTOs
+│   ├── MVP.Project.Infra.Data/       # Implementação do Repositório
+│   ├── MVP.Project.Infra.CrossCutting/ # Serviços Compartilhados
+│   └── MVP.Project.Services.Api/     # API REST
+├── tests/
+│   ├── MVP.Project.Tests.Unit/       # Testes Unitários
+│   └── MVP.Project.Tests.Integration/# Testes de Integração
+└── frontend/                         # Aplicação React</code></pre>
+
+        <h2>Como Executar</h2>
+
+        <h3>Pré-requisitos</h3>
+        <ul>
+            <li>.NET 9.0 SDK</li>
+            <li>Node.js 18+</li>
+            <li>SQL Server</li>
+            <li>Visual Studio 2022 ou VS Code</li>
+        </ul>
+
+        <h3>Backend</h3>
+        <ol>
+            <li>Restaure os pacotes NuGet:
+                <pre><code>dotnet restore</code></pre>
+            </li>
+            <li>Execute as migrações do banco de dados:
+                <pre><code>dotnet ef database update --project src/MVP.Project.Infra.Data --startup-project src/MVP.Project.Services.Api</code></pre>
+            </li>
+            <li>Execute a API:
+                <pre><code>dotnet run --project src/MVP.Project.Services.Api</code></pre>
+            </li>
+        </ol>
+
+        <h3>Frontend</h3>
+        <ol>
+            <li>Instale as dependências:
+                <pre><code>cd frontend
+npm install</code></pre>
+            </li>
+            <li>Execute a aplicação:
+                <pre><code>npm start</code></pre>
+            </li>
+        </ol>
+
+        <h2>Documentação da API</h2>
+        <p>A documentação da API está disponível através do Swagger UI em:</p>
+        <pre><code>https://localhost:5001/swagger</code></pre>
+
+        <h2>Autor</h2>
+        <p><strong>Raul Lima</strong><br>
+        - Email: raul.fml@outlook.com.br<br>
+        - LinkedIn: <a href="https://www.linkedin.com/in/raullima01">@raullima01</a></p>
+
+        <h2>Licença</h2>
+        <p>Este projeto está sob a licença MIT. Veja o arquivo <a href="LICENSE">LICENSE</a> para mais detalhes.</p>
+    </article>
+</body>
+</html> 
