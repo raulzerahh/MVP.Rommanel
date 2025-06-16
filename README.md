@@ -11,7 +11,7 @@ O MVP Project é um projeto de demonstração que implementa uma arquitetura lim
 ## Tecnologias Implementadas
 
 ### Backend
-- ASP.NET Core 9.0
+- ASP.NET Core 8.0
   - ASP.NET WebApi Core
   - ASP.NET Identity Core
 - Entity Framework Core 9.0
